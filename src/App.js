@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useRef, useEffect } from "react";
+import { Counter } from "./Counter";
+import Count from "./Count";
 
 function App() {
+  const counter = useRef();
+  const [count, setCount] = useState();
+  useEffect(() => {
+    counter.current = new Counter();
+    setCount(counter.current.getCounter());
+  }, []);
+
+  const onClickIncrement = (e) => {
+    counter.current.incrementCounter();
+    setCount(counter.current.getCounter());
+  };
+
+  const onClickReset = (e) => {
+    counter.current.setCounter(0);
+    setCount(counter.current.getCounter());
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Testing</h1>
+      <Count counter={count} />
+      <button id="button-increment" onClick={onClickIncrement}>Increment me!</button>
+      <button id="button-reset" onClick={onClickReset}>Reset me!</button>
     </div>
   );
 }
