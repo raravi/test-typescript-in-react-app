@@ -1,4 +1,8 @@
-function Counter() {
+type CounterType = {
+  count: number;
+};
+
+function Counter(this: CounterType) {
   this.count = 0;
 }
 
@@ -6,7 +10,7 @@ Counter.prototype.getCounter = function () {
   return this.count;
 };
 
-Counter.prototype.setCounter = function (counter) {
+Counter.prototype.setCounter = function (counter: number) {
   this.count = counter;
 };
 
